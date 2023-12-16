@@ -1,0 +1,189 @@
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #000;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 625px;
+}
+
+/* Add this style to the container or body element */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /* Adjust as needed for the desired height */
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 16px;
+  background: #7f1515;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 210vh;
+  height: 625px;
+  object-fit: cover;
+}
+
+.autoplay-progress {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--swiper-theme-color);
+}
+
+.autoplay-progress svg {
+  --progress: 0;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  stroke-width: 4px;
+  stroke: var(--swiper-theme-color);
+  fill: none;
+  stroke-dashoffset: calc(125.6 * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+  transform: rotate(-90deg);
+}
+
+.mainEMContainer{
+  height: 220px;
+  width: 220px;
+  background-color: black;
+  position: relative;
+}
+
+.circleEM{
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  right: 10px;
+  
+  background-color: #1C1816;
+  border-radius: 100%;
+  height: 200px;
+  width: 210px;
+}
+
+.centent1{
+  width: 100%;
+  position: absolute;
+  top: 136px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.centent1 h6{
+  font-size: 15px;
+  color: white;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+}
+.squareEM{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  bottom: 10px;
+  background-color: #1C1816;
+  left: 110px;
+  border-radius:0 0px 8px 0;
+}
+.smallCircleEM{
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  border-radius: 100%;
+  background-color: black;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+}
+
+
+.contentAllEm{
+  position: absolute;
+  /* top: -10px; */
+  left: 5px;
+  height: 210px;
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+  background-color: #7f1515;
+}
+
+
+.subContent{
+  position: absolute;
+  bottom: 45px;
+  z-index: 999;
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+  height: 30px;
+}
+
+
+.barEM{
+  margin-top: 5px;
+  height: 3.5px;
+  width: 50px;
+  background-color: red;
+  border-radius: 10px;
+}
+
+
+.mainHeadingBar{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: red;
+  height: 30px !important;
+}
+.mainHeadingBar h6{
+  height: 10px;
+}
+.prdimg {
+  width: 170px;
+  height: 140px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
