@@ -4,8 +4,21 @@ import ProductCard from '../Cards/productCards/productCard';
 import  { useState, useRef, useEffect } from 'react';
 import ScrollSpy from "react-ui-scrollspy";
 import styled from 'styled-components';
+import EMCardsupdate from '../Cards/Emcardsupdate';
+import { productData3 } from '../Cards/EMdata';
+import Product from '../Cards/BSCards';
+import { productData } from '../Cards/data';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProductData } from '../../../config/env';
 
-
+const product = productData.map((item) => (
+  <Product
+    name={item.name}
+    url={item.imageurl}
+    price={item.price}
+    description={item.description}
+  />
+));
 
 
 
@@ -28,11 +41,19 @@ const NavbarContainer = styled.div`
   z-index: 99999999; /* Set a higher z-index value */
 `;
 
+const emproduct = productData3.map((item) => (
+  <EMCardsupdate
+    url={item.imageurl}  
+    name={item.name}
+  />
+));
+
 
 export default function MainCatCont({onClickFunction}) {
 
     const containerRef = useRef(null);
   const [isTabsFixed, setIsTabsFixed] = useState(false);
+  const dispatch = useDispatch();
   const [innerContainerHeight, setInnerContainerHeight] = useState(() => {
     // Retrieve the stored height from local storage, or default to 1
     const storedHeight = localStorage.getItem('innerContainerHeight');
@@ -100,6 +121,32 @@ export default function MainCatCont({onClickFunction}) {
   }, []);
 
 
+  const [count, setCount] = useState(1);
+
+  
+  const incrementCounter = () => {
+    setCount(prevCount => prevCount + 1);
+  };
+
+  const decrementCounter = () => {
+    if (count > 0) {
+      setCount(prevCount => prevCount - 1);
+    }
+  };
+
+
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        id: productData['id'],
+        imageurl: productData['imageUrl'],
+        name: productData['name'],
+        price: productData['price'],
+        quantity: count,
+      })
+    );
+  };
 
 
 
@@ -154,35 +201,22 @@ export default function MainCatCont({onClickFunction}) {
             
  <div className={`topMenuBar ${isSticky ? "fixed" : ""}`}>
  <ScrollSpy 
-        items={['first', 'second', 'third']}
-        currentClassName="active"
-        offset={90} // Adjust the offset as needed
+       
         onUpdate={handleButtonClick}
       >
        
        <div style={{display:'flex',}} className={`${isTabsFixed ? "fixed2" : ""}`}>
-      
-        <button
-          type="button"
-          className={`btn categoryBtn ${activeSection === 'first' ? 'active' : ''}`}
-          onClick={() => handleButtonClick('first')}
-        >
-          Section 1
-        </button>
-        <button
-          type="button"
-          className={`btn categoryBtn ${activeSection === 'second' ? 'active' : ''}`}
-          onClick={() => handleButtonClick('second')}
-        >
-          Section 2
-        </button>
-        <button
-          type="button"
-          className={`btn categoryBtn ${activeSection === 'third' ? 'active' : ''}`}
-          onClick={() => handleButtonClick('third')}
-        >
-          Section 3
-        </button>
+        {
+          productData3.map((item) => (
+            <div onClick={() => handleButtonClick(item.uid)} >
+              <EMCardsupdate
+              url={item.imageurl}  
+              name={item.name}
+              active={activeSection === item.uid ? 'yes' : 'no'}
+            />
+            </div>
+          ))
+        }
        </div>
       </ScrollSpy>
 </div>
@@ -192,24 +226,38 @@ export default function MainCatCont({onClickFunction}) {
             <div className="leftSideProducts">
             
             <div ref={containerRef} className="productsCategoried">
-              <div  id="first" className={`section ${isSticky ? "distance123" : ""}`} ></div>
+              <div  id="edv" className={`section ${isSticky ? "distance123" : ""}`} ></div>
               <h1 className='' >First Category</h1>
               <div className="insideProductsWithHeading">
               
+              {/* <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
-              <ProductCard onClickFunction={()=>{onClickFunction()}} />
-              <ProductCard onClickFunction={()=>{onClickFunction()}} />
+              <ProductCard onClickFunction={()=>{onClickFunction()}} /> */}
+              {productData.map((item,index) => (
+  <div onClick={()=>{
+    setProductData(item.name,item.imageurl,item.price,index);
+    onClickFunction();} }>
+    <Product
+    name={item.name}
+    url={item.imageurl}
+    price={item.price}
+    description={item.description}
+  />
+  </div>
+))}
               </div>
-              <div  id="second" className={`section ${isSticky ? "distance123" : ""}`} ></div>
+              <div  id="acc" className={`section ${isSticky ? "distance123" : ""}`} ></div>
               <h1 className=''>Second Category</h1>
               <div className="insideProductsWithHeading">
               
-              <ProductCard onClickFunction={()=>{onClickFunction()}} />
+              <ProductCard onClickFunction={()=>{
+                setProductData("abc","def");
+                onClickFunction();} } />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
@@ -218,7 +266,7 @@ export default function MainCatCont({onClickFunction}) {
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               <ProductCard onClickFunction={()=>{onClickFunction()}} />
               </div>
-              <div id="third" className={`section ${isSticky ? "distance123" : ""}`} ></div>
+              <div id="pm" className={`section ${isSticky ? "distance123" : ""}`} ></div>
               <h1 className=''>Third Category</h1>
               <div className="insideProductsWithHeading">
               

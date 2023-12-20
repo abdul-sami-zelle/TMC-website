@@ -9,16 +9,55 @@ import AllCollapseExample from "./accordian1";
 import Accordion from 'react-bootstrap/Accordion';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SubAddonTab from "./addons";
+import  { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from "../../Statemanagment/slices/cartSlice";
 
 
-export default function ProductModal({ onClickFunction }) {
+
+
+export default function ProductModal(props) {
+
+    const [count, setCount] = useState(1);
+
+  
+    const incrementCounter = () => {
+      setCount(prevCount => prevCount + 1);
+    };
+  
+    const decrementCounter = () => {
+      if (count > 0) {
+        setCount(prevCount => prevCount - 1);
+      }
+    };
+    const dispatch = useDispatch();
+  
+  
+    const handleAddToCart = () => {
+      dispatch(
+        addToCart({
+          id: props.id,
+          imageurl: props.productImage,
+          name: props.productName,
+          price: props.productPrice,
+          quantity: count,
+        })
+      );
+      
+    };
+
+
+
+
     return (
         <div className="product_modal">
             <div className="three_dots_modal_1">
                 <ThreeSquares />
             </div>
-            <div onClick={ onClickFunction } className="close_Btn_Modal">
-                <img src="https://cdn-icons-png.flaticon.com/128/1828/1828778.png" alt="" srcset="" />
+            <div onClick={ props.onClickFunction } className="close_Btn_Modal">
+                <img src=
+             "https://cdn-icons-png.flaticon.com/128/1828/1828778.png"
+                 alt="" srcset="" />
             </div>
             <div className="categorization_product_modal">
                 <div className="left_Side_product_modal">
@@ -83,11 +122,13 @@ export default function ProductModal({ onClickFunction }) {
                 </div>
                 <div className="right_Side_product_modal">
                     <div className="product_image_modal">
-                        <img src="https://www.kfcpakistan.com/images/43a9fb50-ffaa-11ed-8180-812e571998fe-krunch_variant_0-2023-05-31115706.png" alt="" srcset="" />
+                        <img src={props.productImage}
+                      //  "https://www.kfcpakistan.com/images/43a9fb50-ffaa-11ed-8180-812e571998fe-krunch_variant_0-2023-05-31115706.png"
+                         alt="" srcset="" />
                     </div>
                     <div class="shadow-img"></div>
                     <h2>
-                        Zinger Stacker
+                        {props.productName}
                     </h2>
                     <p>
                         Double krunch fillet, jalapenos, spicy mayo, lettuce and cheese with our signature Vietnamese sauce- sandwiched between a sesame seed bun
@@ -96,25 +137,35 @@ export default function ProductModal({ onClickFunction }) {
                         {/* <Button variant="outlined" href="#outlined-buttons">
                   <FontAwesomeIcon icon="fa-solid fa-plus" />
                 </Button> */}
-                        <Box sx={{ backgroundColor: "transparent", height: '35px', width: '35px', borderRadius: '5px', border: '2px solid #e4002b', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                            onClick={() => { }
-
+                        <Box sx={{ backgroundColor: "transparent", height: '40px', width: '40px', borderRadius: '5px', border: '2px solid #e4002b', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                            onClick={() => {
+                               count===1?null:decrementCounter();
+                             }
+                                
                             }>
                             <RemoveIcon sx={{ color: 'white' }} />
                         </Box>
                         <h3>
-                            10
+                            {count}
                         </h3>
-                        <Box sx={{ backgroundColor: "transparent", height: '35px', width: '35px', borderRadius: '5px', border: '2px solid #e4002b', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                            onClick={() => { }
+                        <Box sx={{ backgroundColor: "transparent", height: '40px', width: '40px', borderRadius: '5px', border: '2px solid #e4002b', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                            onClick={() => {
+                              
+                                incrementCounter();
+                             }
 
                             }>
 
                             <AddIcon sx={{ color: 'white' }} />
                         </Box>
                     </div>
-                    <div className="add_to_bucket_modal_1">
-                        <h4>RS 590</h4>
+                    <div onClick={
+                        ()=>{
+                            handleAddToCart();
+                            props.onClickFunction();
+                        }
+                        } className="add_to_bucket_modal_1">
+                        <h4>RS {props.productPrice}</h4>
                         <h3>ADD TO BUCKET</h3>
                         <div className="forwardIcon">
                             <img src="https://cdn-icons-png.flaticon.com/128/5343/5343102.png" alt="" srcset="" />

@@ -73,10 +73,22 @@
     text-transform: capitalize;
     padding: 20px;
     width: 250px;
-    background-color: #1C1816;
+    background-color: #1C1816 !important;
     box-shadow: 0 4px 8px rgba(239, 5, 5, 0.1);
     position: relative;
     margin-right: 20px;
+    margin-top: 20px;
+  }
+
+  .card h2{
+    font-family: 'National2CondensedBold';
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+    margin: 20px 0 10px -10px;
+    font-size: 26px;
+    width: 100%;
+    text-align: start;
   }
 
   .card p{
@@ -88,27 +100,74 @@
     font-size: 18px;
   }
 
-  .flag {
-    display: inline-flex;
-    width: 75px;
-    height: 35px;
-    box-sizing: content-box;
-    padding-top: 15px;
-    position: relative;
-    background: red;
-  }
-  .flag:after {
-    content: "";
+  .flag{
+    background-color: #ea002a!important;
+    background-color: #ea002a!important;
+    border-radius: 0.25em;
+    border-radius: 0;
+    color: #fff;
+    display: inline-block;
+    font-weight: 800;
+    height: 28px;
+    line-height: 24px;
+    padding: 2px 15px;
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-left: 15px solid #1C1816;
-    border-top: 25px solid transparent;
-    border-bottom: 25px solid transparent;
-  }
+    right: 0;
+    text-align: center;
+    text-shadow: none;
+    top: 80px;
+    vertical-align: initial;
+    white-space: nowrap;
+    width: 80px;
+}
+.ribbon-2 {
+  --f: 10px; /* control the folded part*/
+  --r: 15px; /* control the ribbon shape */
+  --t: 0px; /* the top offset */
   
+  position: absolute;
+  /* right: 0px !important; */
+  top: 70px !important;
+  right: -10px;
+  padding: 1px 10px ;
+  clip-path: 
+    polygon(0 0,100% 0,100% calc(100% - var(--f)),calc(100% - var(--f)) 100%,
+      calc(100% - var(--f)) calc(100% - var(--f)),0 calc(100% - var(--f)),
+      var(--r) calc(50% - var(--f)/2));
+  background: #ea002a;
+  box-shadow: 0 calc(-1*var(--f)) 0 inset #0005;
+  font-family:'National2CondensedBold' ;
+  color: white;
+  font-size: 22px;
+}
+
+.ribbon-2 p{
+
+
+}
+
+
+.box {
+ 
+  background:lightblue;
+  position:relative;
+}
+  
+.flag2:before {
+  border-width: 9px;
+  border-bottom: 14px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid #ea002a;
+  border-right-color: #ea002a;
+  border-top: 14px solid transparent;
+  content: "";
+  display: inline-block;
+  left: -14px;
+  position: absolute;
+  top: 0;
+}
+
+
   .price {
     color: grey;
     font-size: 22px;
@@ -371,7 +430,7 @@
 
 .rightSideCart{
   width: 35%;
-  height: 540px;
+  height: 580px;
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -575,7 +634,7 @@
 
 .rightSideCart.fixed {
   position: fixed;
-  top: 100px;
+  bottom: 0px;
   right: 80px;
   width: 31.5%;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.0);
@@ -584,12 +643,13 @@
 
 
 .topMenuBar {
-  height: 80px;
+  height: 170px;
   background-color: black;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 
@@ -766,9 +826,9 @@
 }
 
 .inc_dec_btn h3{
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  margin: 5px 5px 0 5px;
+  margin: 5px 5px 5px 5px;
   color: white;
 }
 

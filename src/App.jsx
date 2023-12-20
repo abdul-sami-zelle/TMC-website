@@ -21,15 +21,80 @@ import ProductCard from './Components/Body/Cards/productCards/productCard';
 import MainCatCont from './Components/Body/productsWithCat/mainContainer';
 import ProductModal from './Components/Modals/productModal';
 import  { useState ,useEffect} from 'react';
+import { GlobalUrl } from './config/env';
 import Button from '@mui/material/Button';
 import ScrollSpy from "react-ui-scrollspy";
 import styled from 'styled-components';
+import { productName,productImage,productPrice,productId } from './config/env';
 
 
 
 export default function App() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categories, setCategories] = useState();
+  const [simpleProducts, setSimpleProducts] = useState();
+  const [variableProducts, setVariableProducts] = useState();
+  
+
+
+  useEffect(() => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      `${GlobalUrl}/Category/1/Get-Category/branch1`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        setCategories(result.categories);
+        console.log(result.categories);
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
+
+
+  useEffect(() => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      `${GlobalUrl}/SimpleProduct/1/Get-SimpleProduct/branch1`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        setSimpleProducts(result);
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
+
+
+
+  useEffect(() => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(
+      `${GlobalUrl}/VariableProduct/1/Get-VariableProduct/branch1`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        setVariableProducts(result);
+        console.log(result);
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
+
+
 
   const openModal = () => {
     // Set overflow: hidden when opening the modal
@@ -41,8 +106,10 @@ export default function App() {
   const closeModal = () => {
     // Reset overflow to its default value when closing the modal
     document.body.style.overflow = 'auto';
+    console.log("working111");
     document.getElementById('modalBack').style.display = "none";
     setIsModalOpen(false);
+    console.log("working222");
   };
 
 
@@ -161,9 +228,10 @@ export default function App() {
         <div className="EMPrdSlider">
         <h1>Explore Menu</h1>
         <div style={{height:"40px"}}></div>
-        <Carousel showDots={false} responsive={responsive1}>
-          {emproduct}
-        </Carousel>
+        {/* <Carousel showDots={false} responsive={responsive1}>
+        
+        </Carousel> */}
+        
       </div>
                 {/* Product Slider "Best Seller" Section */}
       <div style={{height:"60px"}}></div>
@@ -171,13 +239,25 @@ export default function App() {
         <h1>Best Sellers</h1>
         <div style={{height:"20px"}}></div>
         {/* <Carousel showDots={true} responsive={responsive}> */}
-         <div className='productSlider_sub0'>
-           {product}
-         </div>
+        <div className='productSlider_sub0'>
+      {simpleProducts ? (
+        simpleProducts.map((item) => (
+          <Product
+            key={item.id} // Make sure to provide a unique key for each item
+            name={item.name}
+            url={item.images[0]}
+            price={item.price}
+            description={item.description}
+          />
+        ))
+      ) : (
+        <p>Loading...</p> // You can show a loading indicator while the data is being fetched
+      )}
+    </div>
          <div className="productSlider_sub1">
-         <Carousel showDots={false} responsive={responsive}>
+         {/* <Carousel showDots={false} responsive={responsive}>
           {product}
-        </Carousel>
+        </Carousel> */}
          </div>
         {/* </Carousel> */}
       </div>
@@ -213,16 +293,17 @@ export default function App() {
         left: '0',
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', /* semi-transparent overlay */
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
         display: 'none',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex:'999',
-        padding:'0 aut0'
+        padding:'0 auto'
       }
     }>
-      <ProductModal onClickFunction={()=>{
+      <ProductModal productName={productName}  productPrice={productPrice} productImage={productImage} onClickFunction={()=>{
         closeModal()
+        
       }} />
     </div>
    </div>

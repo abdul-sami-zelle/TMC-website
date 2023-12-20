@@ -31,35 +31,42 @@ export const productData3 = [
     id: 1,
     imageurl: productImage1, // `url("https://www.kfcpakistan.com/images/afc4e8b0-ff99-11ed-8640-872ee63b5da0-alacart-2023-05-31095826.png")`
     name: "Every day value",
+    uid:"edv"
   },
   {
     id: 2,
     imageurl: productImage2,
     name: "Ala-Carte-&-Combos",
+    uid:"acc"
     },
   {
     id: 3,
     imageurl: productImage3,
     name: "Promotion",
+    uid:"pm"
     },
   {
     id: 4,
     imageurl: productImage4,
     name: "Signature-Boxes",
+    uid:"sb"
     },
   {
     id: 5,
     imageurl: productImage5,
     name: "Sharing",
+    uid:"sh"
     },
   {
     id: 6,
     imageurl: productImage6,
     name: "Snakes-&-Beverages",
+    uid:"sb"
     },
   {
     id: 7,
     imageurl: productImage7,
     name: "Midnight (Start at 12 am)",
+    uid:"mn"
     },
 ];
